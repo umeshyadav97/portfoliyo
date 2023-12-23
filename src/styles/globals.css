@@ -5,7 +5,9 @@
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* --background-end-rgb: 255, 255, 255; */
+  --background-end-rgb: #ffffff;
+  --transition-duration: 0.5s;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -15,6 +17,19 @@
     --background-end-rgb: 0, 0, 0;
   }
 } */
+
+@font-face {
+  font-family: "poppins";
+  src: url(../assets/font/poppins/Poppins-Regular.ttf);
+}
+@font-face {
+  font-family: "poppins medium";
+  src: url(../assets/font/poppins/Poppins-Medium.ttf);
+}
+@font-face {
+  font-family: "poppins semibold";
+  src: url(../assets/font/poppins/Poppins-SemiBold.ttf);
+}
 
 body {
   color: rgb(var(--foreground-rgb));
@@ -30,7 +45,7 @@ body,
 div {
   padding: 0;
   margin: 0;
-  font-family: Roboto;
+  font-family: poppins;
 }
 
 a {
