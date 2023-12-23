@@ -90,7 +90,7 @@ function Home() {
               </Box>
             </Box>
           </Box>
-          <Box xs={6} style={{ position: "relative", overflow: "hidden" }}>
+          <Box xs={6} style={{ position: "relative", overflow: "hidden" }} pl={2}>
             <Image
               src={ProfileImage}
               width={330}
