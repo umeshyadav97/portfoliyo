@@ -1,15 +1,19 @@
 import React from "react"
 import Head from "next/head"
-import { getServerSideProps } from "./home.server"
 import { Box, Divider, Typography } from "@mui/material"
 import Image from "next/image"
 import Linkdien from "../../assets/images/icons/linkdien.svg"
 import Github from "../../assets/images/icons/github.svg"
-import { useHomeController } from "./home.controller"
 import { keyframes } from "@emotion/react"
+import HTML from "../../assets/images/icons/html.svg";
+import CSS from "../../assets/images/icons/css.svg";
+import JS from "../../assets/images/icons/js.svg";
+import ReactImage from "../../assets/images/icons/react.svg";
+import Next from "../../assets/images/icons/next.svg";
+import Mui from "../../assets/images/icons/mui.svg";
+import Tailwind from "../../assets/images/icons/tailwind.svg";
 
 function Home() {
-  const { techStackList } = useHomeController()
   const rotateAnimation = keyframes`
   0% {
     transform: rotate(0deg);
@@ -21,6 +25,15 @@ function Home() {
     transform: rotate(360deg);
   }
 `
+   const techStackList = [
+    { id: 1, src: HTML, alt: "Image 1" },
+    { id: 2, src: CSS, alt: "Image 2" },
+    { id: 3, src: JS, alt: "Image 3" },
+    { id: 4, src: React, alt: "Image 4" },
+    { id: 5, src: Next, alt: "Image 5" },
+    { id: 6, src: Mui, alt: "Image 6" },
+    { id: 7, src: Tailwind, alt: "Image 7" },
+  ];
   const Linkedin = "https://www.linkedin.com/in/umeshyadav97"
   const Git = "https://github.com/umeshyadav97"
   return (
@@ -97,4 +110,4 @@ function Home() {
 
 export default Home
 
-export { getServerSideProps }
+
