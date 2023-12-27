@@ -50,13 +50,7 @@ function About() {
                 Next.js, HTML, CSS, Java, TypeScript, and Node.js. This diverse background has not
                 only honed my technical abilities but also equipped me with a unique perspective on
                 how technology can be leveraged to address specific challenges within different
-                industries. One of the aspects that sets me apart is my strong commitment to
-                delivering exceptional results. I pride myself on my ability to take ownership of
-                projects, work collaboratively, and drive innovation. In my previous roles, I have
-                contributed to the development of cutting-edge web applications that have positively
-                impacted user experiences and business outcomes.This holistic approach has given me
-                insights into how each piece of code contributes to the bigger picture and helps
-                achieve business goals.In addition to my technical skills, I possess excellent
+                industries.In addition to my technical skills, I possess excellent
                 communication and interpersonal skills. I believe that clear and effective
                 communication is crucial for successful collaboration with cross-functional teams,
                 stakeholders, and clients.
