@@ -1,58 +1,76 @@
-import * as React from "react"
-import AppBar from "@mui/material/AppBar"
-import Box from "@mui/material/Box"
-import Toolbar from "@mui/material/Toolbar"
-import IconButton from "@mui/material/IconButton"
-import Typography from "@mui/material/Typography"
-import MenuIcon from "@mui/icons-material/Menu"
-import Container from "@mui/material/Container"
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
 // import Button from "@mui/material/Button"
-import AdbIcon from "@mui/icons-material/Adb"
-import Drawer from "@mui/material/Drawer"
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
-import ChevronRightIcon from "@mui/icons-material/ChevronRight"
-import ListItem from "@mui/material/ListItem"
-import ListItemButton from "@mui/material/ListItemButton"
-import ListItemText from "@mui/material/ListItemText"
-import List from "@mui/material/List"
-import Divider from "@mui/material/Divider"
-import { Link } from "@mui/material"
-import { useNavbarController } from "./navbar.controller"
+import AdbIcon from "@mui/icons-material/Adb";
+import Drawer from "@mui/material/Drawer";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import { Link } from "@mui/material";
+import { useNavbarController } from "./navbar.controller";
+import { useRouter } from "next/router";
+import Image from "next/image";
+import LightTheme from "../../assets/images/icons/light.svg";
+import DarkTheme from "../../assets/images/icons/dark.svg";
+import { ThemeContext } from "../themeContext";
 
 const pages = [
   {
     name: "Home",
-    link: "/home"
+    link: "/home",
   },
   {
     name: "About",
-    link: "/about"
+    link: "/about",
   },
   {
     name: "Projects",
-    link: "/projects"
+    link: "/projects",
   },
 
   {
     name: "Contact",
-    link: "/contact"
-  }
-]
+    link: "/contact",
+  },
+];
 
-const drawerWidth = 240
+const drawerWidth = 240;
 
 function NavBar() {
   const { open, theme, classes, handleDrawerOpen, handleDrawerClose, navRef } =
-    useNavbarController()
+    useNavbarController();
+  const router = useRouter();
+  const { isDarkMode, toggleTheme } = React.useContext(ThemeContext);
 
   return (
     <AppBar
-      sx={(classes[navRef.current], { borderBottom: "1px solid #EAECF0", background: "#ffffff" })}
-      position="fixed">
+      sx={
+        (classes[navRef.current],
+        {
+          borderBottom: "1px solid #EAECF0",
+          background: isDarkMode ? "#ffffff" : "#000000",
+        })
+      }
+      position="fixed"
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1, color: theme.palette.primary.main }}
+            sx={{
+              display: { xs: "none", md: "flex" },
+              mr: 1,
+              color: theme.palette.primary.main,
+            }}
           />
           <Typography
             variant="h6"
@@ -66,8 +84,9 @@ function NavBar() {
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: theme.palette.primary.main,
-              textDecoration: "none"
-            }}>
+              textDecoration: "none",
+            }}
+          >
             umesh.dev
           </Typography>
 
@@ -78,7 +97,8 @@ function NavBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleDrawerOpen}
-              color={theme.palette.primary.main}>
+              color={theme.palette.primary.main}
+            >
               <MenuIcon />
             </IconButton>
 
@@ -88,16 +108,22 @@ function NavBar() {
                 flexShrink: 0,
                 "& .MuiDrawer-paper": {
                   width: drawerWidth,
-                  boxSizing: "border-box"
-                }
+                  boxSizing: "border-box",
+                },
               }}
               variant="persistent"
               anchor="left"
-              open={open}>
+              open={open}
+            >
               <IconButton
                 sx={{ display: "flex", justifyContent: "end" }}
-                onClick={handleDrawerClose}>
-                {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                onClick={handleDrawerClose}
+              >
+                {theme.direction === "ltr" ? (
+                  <ChevronLeftIcon />
+                ) : (
+                  <ChevronRightIcon />
+                )}
               </IconButton>
 
               <Divider />
@@ -105,7 +131,10 @@ function NavBar() {
                 {pages.map((text, idx) => (
                   <ListItem key={idx} disablePadding>
                     <ListItemButton>
-                      <Link href={text.link} underline="none">
+                      <Link
+                        href={text.link}
+                        sx={{ textDecoration: "underline" }}
+                      >
                         <ListItemText primary={text.name} />
                       </Link>
                     </ListItemButton>
@@ -116,7 +145,11 @@ function NavBar() {
             </Drawer>
           </Box>
           <AdbIcon
-            sx={{ display: { xs: "flex", md: "none" }, mr: 1, color: theme.palette.primary.main }}
+            sx={{
+              display: { xs: "flex", md: "none" },
+              mr: 1,
+              color: theme.palette.primary.main,
+            }}
           />
           <Typography
             variant="h5"
@@ -131,21 +164,53 @@ function NavBar() {
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: theme.palette.primary.main,
-              textDecoration: "none"
-            }}>
+              textDecoration: "none",
+            }}
+          >
             umesh.dev
           </Typography>
           <Box
-            sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "flex-end" }}>
-            <List style={{ my: 2, color: theme.palette.primary.main, display: "flex" }}>
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: "flex-end",
+            }}
+          >
+            <List
+              style={{
+                my: 2,
+                color: theme.palette.primary.main,
+                display: "flex",
+              }}
+            >
               {pages.map((page, idx) => (
                 <ListItem key={idx} sx={{ width: "auto" }}>
-                  <Link underline="none" variant="inherit" href={page.link}>
+                  <Link
+                    sx={{
+                      textDecoration:
+                        page.link === router.pathname ? "underline" : "none",
+                      variant: "inherit",
+                    }}
+                    href={page.link}
+                  >
                     {page.name}
                   </Link>
                 </ListItem>
               ))}
             </List>
+            <Box
+              display="flex"
+              alignItems="center"
+              onClick={() => toggleTheme()}
+              sx={{ cursor: "pointer" }}
+            >
+              <Image
+                src={isDarkMode ? LightTheme : DarkTheme}
+                alt="theme"
+                height={25}
+                width={25}
+              />
+            </Box>
           </Box>
 
           {/* {!isLoggedIn && (
@@ -190,6 +255,6 @@ function NavBar() {
         </Toolbar>
       </Container>
     </AppBar>
-  )
+  );
 }
-export default NavBar
+export default NavBar;
