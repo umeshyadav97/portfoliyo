@@ -2,30 +2,42 @@ import React from "react";
 import { projectDeatils } from "./projectdata";
 import styles from "./ProjectData.module.css";
 import Image from "next/image";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 const ProjectData = () => {
   return (
     <div className={styles.card_wrapper}>
-      {projectDeatils.map((data) => (
-        <div key={data.id} className={styles.card_effect}>
-          <Image
-            src={
-              data?.img
-                ? data?.img
-                : "https://cdn.pixabay.com/photo/2013/08/20/15/47/poppies-174276_1280.jpg"
-            }
-            alt="img"
-          />
-          <div className={styles.info}>
-            <h1>{data?.title ? data?.title : ""}</h1>
-            <p>{data?.para ? data?.para : ""}</p>
-            <button>
-              <a href={data.link} rel="noopener noreferrer" target="_blank">
-                Know More
-              </a>
-            </button>
+      {projectDeatils.map((data, index) => (
+        <article
+          key={data.id}
+          className={`${styles.card_effect} page-animate`}
+          style={{ animationDelay: `${index * 90}ms` }}
+        >
+          <div className={styles.image_wrap}>
+            <Image
+              src={data?.img}
+              alt={`${data?.title} project preview`}
+              fill
+              sizes="(max-width: 900px) 100vw, 50vw"
+            />
           </div>
-        </div>
+          <div className={styles.info}>
+            <div>
+              <p className={styles.kicker}>Featured Project</p>
+              <h2>{data?.title}</h2>
+              <p>{data?.para}</p>
+            </div>
+            <div className={styles.tags}>
+              {data.tags?.map((tag) => (
+                <span key={tag}>{tag}</span>
+              ))}
+            </div>
+            <a className={styles.project_link} href={data.link} rel="noopener noreferrer" target="_blank">
+              View project
+              <OpenInNewIcon fontSize="small" />
+            </a>
+          </div>
+        </article>
       ))}
     </div>
   );

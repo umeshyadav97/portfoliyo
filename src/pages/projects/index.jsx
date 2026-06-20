@@ -1,56 +1,71 @@
 import React from "react";
 import Head from "next/head";
-import { Container, Grid, Typography } from "@mui/material";
-import Image from "next/image";
-import SideImage from "../../assets/images/backgrounds/project.jpg";
-import ProjectData from "../../components/projectData";
+import { Box, Container } from "@mui/material";
+import OtherProjects from "../../components/projects/OtherProjects";
+import ProjectCTA from "../../components/projects/ProjectCTA";
+import ProjectDetails from "../../components/projects/ProjectDetails";
+import ProjectHero from "../../components/projects/ProjectHero";
+import ProjectSidebar from "../../components/projects/ProjectSidebar";
+import ProjectTechStack from "../../components/projects/ProjectTechStack";
+import { projects } from "../../components/projects/projectData";
+import { projectTheme } from "../../components/projects/projectTheme";
 
 function Projects() {
+  const [selectedId, setSelectedId] = React.useState(projects[0].id);
+
+  const selectedProject = React.useMemo(
+    () => projects.find((project) => project.id === selectedId) || projects[0],
+    [selectedId]
+  );
+
+  const otherProjects = React.useMemo(
+    () => projects.filter((project) => project.id !== selectedProject.id),
+    [selectedProject.id]
+  );
+
+  const handleSelectProject = React.useCallback(
+    (projectId) => {
+      if (projectId !== selectedId) {
+        setSelectedId(projectId);
+      }
+    },
+    [selectedId]
+  );
+
   return (
     <React.Fragment>
       <Head>
-        <title>Projects</title>
+        <title>Projects | Umesh Yadav</title>
       </Head>
-      <Container sx={{ p: 4, marginTop: "auto" }} maxWidth="xl">
-        <Grid container spacing={8}>
-          <Grid item xs={8}>
-            <Grid item>
-              <Typography variant="h7">
-                Coding Chronicles: Crafting Impactful Software Solutions for a
-                Digital Revolution
-              </Typography>{" "}
-            </Grid>
-            <Grid item pt={3}>
-              <Typography variant="h5">
-                Explore my diverse Frontend Developer Portfolio, showcasing
-                expertise in crafting seamless E-commerce experiences. I
-                specialize in designing comprehensive admin and seller panel
-                dashboards, including product management, appointments, and
-                integrated chat functionalities. My proficiency extends to
-                Banking Integration, where I have seamlessly incorporated ACH
-                and Wire transfers, along with dashboard development.
-                Additionally, witness the power of Strope AI, a revolutionary
-                module enabling project estimation based on selected templates
-                and features. Navigate through a dynamic showcase of my frontend
-                prowess, where innovation meets user-centric design for
-                unparalleled digital experiences.
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid item xs={4}>
-            <Image
-              src={SideImage}
-              width={420}
-              height={320}
-              alt="img"
-              style={{ borderRadius: "12px" }}
+
+      <Box sx={{ bgcolor: "#FFFFFF", color: projectTheme.ink, minHeight: "100vh", pb: { xs: 6, md: 10 } }}>
+        <Container maxWidth="xl" className="page-animate" sx={{ pt: { xs: 5, md: 7 } }}>
+          <ProjectHero />
+
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", lg: "292px 1fr" },
+              border: `1px solid ${projectTheme.border}`,
+              borderRadius: 2.5,
+              overflow: "hidden",
+              bgcolor: "#fff",
+              boxShadow: "0 22px 70px rgba(35, 24, 92, 0.08)",
+            }}
+          >
+            <ProjectSidebar
+              projects={projects}
+              selectedId={selectedProject.id}
+              onSelect={handleSelectProject}
             />
-          </Grid>
-        </Grid>
-        <Grid container py={4} spacing={2}>
-          <ProjectData />
-        </Grid>
-      </Container>
+            <ProjectDetails project={selectedProject} />
+          </Box>
+
+          <ProjectTechStack project={selectedProject} />
+          <OtherProjects projects={otherProjects} onSelect={handleSelectProject} />
+          <ProjectCTA />
+        </Container>
+      </Box>
     </React.Fragment>
   );
 }

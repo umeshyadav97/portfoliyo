@@ -6,11 +6,11 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-// import Button from "@mui/material/Button"
-import AdbIcon from "@mui/icons-material/Adb";
+import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
@@ -19,10 +19,6 @@ import Divider from "@mui/material/Divider";
 import { Link } from "@mui/material";
 import { useNavbarController } from "./navbar.controller";
 import { useRouter } from "next/router";
-import Image from "next/image";
-import LightTheme from "../../assets/images/icons/light.svg";
-import DarkTheme from "../../assets/images/icons/dark.svg";
-import { ThemeContext } from "../themeContext";
 
 const pages = [
   {
@@ -50,54 +46,66 @@ function NavBar() {
   const { open, theme, classes, handleDrawerOpen, handleDrawerClose, navRef } =
     useNavbarController();
   const router = useRouter();
-  const { isDarkMode, toggleTheme } = React.useContext(ThemeContext);
+  const activeColor = "#5B2EFF";
+  const mutedColor = "#27324A";
 
   return (
     <AppBar
       sx={
         (classes[navRef.current],
         {
-          borderBottom: "1px solid #EAECF0",
-          background: isDarkMode ? "#ffffff" : "#000000",
+          borderBottom: "1px solid #E7EAF2",
+          background: "rgba(255, 255, 255, 0.92)",
+          backdropFilter: "blur(18px)",
+          boxShadow: "none",
+          transition: "background 240ms ease, border-color 240ms ease",
         })
       }
       position="fixed"
     >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon
-            sx={{
-              display: { xs: "none", md: "flex" },
-              mr: 1,
-              color: theme.palette.primary.main,
-            }}
-          />
-          <Typography
-            variant="h6"
-            noWrap
+        <Toolbar disableGutters sx={{ minHeight: { xs: 64, md: 72 } }}>
+          <Box
             component="a"
             href="/"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: theme.palette.primary.main,
+              display: { xs: "none", md: "inline-flex" },
+              alignItems: "center",
+              gap: 1.25,
+              color: "#080B16",
               textDecoration: "none",
             }}
           >
-            umesh.dev
-          </Typography>
+            <Box
+              sx={{
+                width: 26,
+                height: 26,
+                borderRadius: "9px",
+                display: "grid",
+                placeItems: "center",
+                bgcolor: "#5B2EFF",
+                color: "#fff",
+                fontFamily: "poppins semibold",
+                fontWeight: 800,
+                lineHeight: 1,
+              }}
+            >
+              U
+            </Box>
+            <Typography sx={{ fontFamily: "poppins semibold", fontSize: 24, fontWeight: 800 }}>
+              umesh<span style={{ color: "#5B2EFF" }}>.dev</span>
+            </Typography>
+          </Box>
 
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="Open navigation menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleDrawerOpen}
-              color={theme.palette.primary.main}
+              sx={{ color: activeColor }}
             >
               <MenuIcon />
             </IconButton>
@@ -109,6 +117,9 @@ function NavBar() {
                 "& .MuiDrawer-paper": {
                   width: drawerWidth,
                   boxSizing: "border-box",
+                  p: 1,
+                  background: "#FFFFFF",
+                  color: "#080B16",
                 },
               }}
               variant="persistent"
@@ -133,7 +144,11 @@ function NavBar() {
                     <ListItemButton>
                       <Link
                         href={text.link}
-                        sx={{ textDecoration: "underline" }}
+                        sx={{
+                          color: activeColor,
+                          textDecoration: "none",
+                          fontWeight: text.link === router.pathname ? 700 : 500,
+                        }}
                       >
                         <ListItemText primary={text.name} />
                       </Link>
@@ -144,52 +159,68 @@ function NavBar() {
               <Divider />
             </Drawer>
           </Box>
-          <AdbIcon
-            sx={{
-              display: { xs: "flex", md: "none" },
-              mr: 1,
-              color: theme.palette.primary.main,
-            }}
-          />
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "monospace",
+              fontFamily: "poppins semibold",
               fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: theme.palette.primary.main,
+              letterSpacing: 0,
+              color: "#080B16",
               textDecoration: "none",
             }}
           >
-            umesh.dev
+            umesh<span style={{ color: "#5B2EFF" }}>.dev</span>
           </Typography>
           <Box
             sx={{
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
-              justifyContent: "flex-end",
+              justifyContent: "center",
             }}
           >
             <List
               style={{
                 my: 2,
-                color: theme.palette.primary.main,
+                color: activeColor,
                 display: "flex",
+                gap: "18px",
               }}
             >
               {pages.map((page, idx) => (
                 <ListItem key={idx} sx={{ width: "auto" }}>
                   <Link
                     sx={{
-                      textDecoration:
-                        page.link === router.pathname ? "underline" : "none",
-                      variant: "inherit",
+                      color: page.link === router.pathname ? activeColor : mutedColor,
+                      textDecoration: "none",
+                      fontWeight: page.link === router.pathname ? 700 : 500,
+                      position: "relative",
+                      transition: "color 180ms ease",
+                      "&:after": {
+                        content: '""',
+                        position: "absolute",
+                        left: 0,
+                        right: 0,
+                        bottom: -8,
+                        height: 2,
+                        borderRadius: 2,
+                        background: activeColor,
+                        transform:
+                          page.link === router.pathname ? "scaleX(1)" : "scaleX(0)",
+                        transformOrigin: "left",
+                        transition: "transform 180ms ease",
+                      },
+                      "&:hover": {
+                        color: activeColor,
+                      },
+                      "&:hover:after": {
+                        transform: "scaleX(1)",
+                      },
                     }}
                     href={page.link}
                   >
@@ -198,60 +229,28 @@ function NavBar() {
                 </ListItem>
               ))}
             </List>
-            <Box
-              display="flex"
-              alignItems="center"
-              onClick={() => toggleTheme()}
-              sx={{ cursor: "pointer" }}
-            >
-              <Image
-                src={isDarkMode ? LightTheme : DarkTheme}
-                alt="theme"
-                height={25}
-                width={25}
-              />
-            </Box>
           </Box>
-
-          {/* {!isLoggedIn && (
-            <>
-              <Button
-                color="primary"
-                onClick={() => navigate("/auth/login")}
-                className={navBackground}
-                sx={{
-                  background: theme.palette.primary.main,
-                  color: theme.palette.secondary.main,
-                  marginRight: "10px"
-                }}>
-                Login
-              </Button>
-              <Button
-                color="primary"
-                onClick={() => navigate("/auth/signup")}
-                className={navBackground}
-                sx={{
-                  background: theme.palette.primary.main,
-                  color: theme.palette.secondary.main
-                }}>
-                Sign Up
-              </Button>
-            </>
-          )} */}
-
-          {/* {isLoggedIn && (
-            <Button
-              color="primary"
-              onClick={logout}
-              className={navBackground}
-              sx={{
-                background: theme.palette.primary.main,
-                color: theme.palette.secondary.main,
-                marginRight: "10px"
-              }}>
-              Logout
-            </Button>
-          )} */}
+          <Button
+            href="/Umesh_Yadav_Resume.pdf"
+            download
+            variant="outlined"
+            startIcon={<FileDownloadOutlinedIcon />}
+            sx={{
+              display: { xs: "none", sm: "inline-flex" },
+              borderColor: activeColor,
+              color: activeColor,
+              borderRadius: 2,
+              px: 2.5,
+              py: 1,
+              fontWeight: 700,
+              "&:hover": {
+                borderColor: "#4A20E8",
+                bgcolor: "rgba(91, 46, 255, 0.06)",
+              },
+            }}
+          >
+            Download Resume
+          </Button>
         </Toolbar>
       </Container>
     </AppBar>
