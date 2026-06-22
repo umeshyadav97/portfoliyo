@@ -10,26 +10,25 @@ import ProjectTechStack from "../../components/projects/ProjectTechStack";
 import { projects } from "../../components/projects/projectData";
 import { projectTheme } from "../../components/projects/projectTheme";
 
-function Projects() {
-  const [selectedId, setSelectedId] = React.useState(projects[0].id);
-
+function Projects({ initialProjectId }) {
+  const selectedId = initialProjectId || projects[0].id;
   const selectedProject = React.useMemo(
     () => projects.find((project) => project.id === selectedId) || projects[0],
-    [selectedId]
+    [selectedId],
   );
 
   const otherProjects = React.useMemo(
     () => projects.filter((project) => project.id !== selectedProject.id),
-    [selectedProject.id]
+    [selectedProject.id],
   );
 
   const handleSelectProject = React.useCallback(
     (projectId) => {
       if (projectId !== selectedId) {
-        setSelectedId(projectId);
+        window.location.assign(`/projects?project=${encodeURIComponent(projectId)}`);
       }
     },
-    [selectedId]
+    [selectedId],
   );
 
   return (
@@ -38,8 +37,19 @@ function Projects() {
         <title>Projects | Umesh Yadav</title>
       </Head>
 
-      <Box sx={{ bgcolor: "#FFFFFF", color: projectTheme.ink, minHeight: "100vh", pb: { xs: 6, md: 10 } }}>
-        <Container maxWidth="xl" className="page-animate" sx={{ pt: { xs: 5, md: 7 } }}>
+      <Box
+        sx={{
+          bgcolor: "#FFFFFF",
+          color: projectTheme.ink,
+          minHeight: "100vh",
+          pb: { xs: 6, md: 10 },
+        }}
+      >
+        <Container
+          maxWidth="xl"
+          className="page-animate"
+          sx={{ pt: { xs: 5, md: 7 } }}
+        >
           <ProjectHero />
 
           <Box
@@ -62,7 +72,10 @@ function Projects() {
           </Box>
 
           <ProjectTechStack project={selectedProject} />
-          <OtherProjects projects={otherProjects} onSelect={handleSelectProject} />
+          <OtherProjects
+            projects={otherProjects}
+            onSelect={handleSelectProject}
+          />
           <ProjectCTA />
         </Container>
       </Box>
@@ -71,3 +84,17 @@ function Projects() {
 }
 
 export default Projects;
+
+export function getServerSideProps(context) {
+  const projectId = context.query.project;
+  const initialProjectId =
+    typeof projectId === "string" && projects.some((project) => project.id === projectId)
+      ? projectId
+      : projects[0].id;
+
+  return {
+    props: {
+      initialProjectId,
+    },
+  };
+}
