@@ -8,6 +8,12 @@
   --background-end-rgb: 255, 255, 255;
   --surface-rgb: 255, 255, 255;
   --border-rgb: 226, 232, 240;
+  --portfolio-purple: #5b2eff;
+  --portfolio-ink: #080b16;
+  --portfolio-body: #42506b;
+  --portfolio-border: #e7eaf2;
+  --portfolio-soft-border: #e8eaf3;
+  --portfolio-surface: #ffffff;
 }
 
 body[data-theme="dark"] {

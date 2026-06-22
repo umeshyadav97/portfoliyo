@@ -1,6 +1,6 @@
 import React from "react";
-import Head from "next/head";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
+import PageShell from "../../components/common/PageShell";
 import OtherProjects from "../../components/projects/OtherProjects";
 import ProjectCTA from "../../components/projects/ProjectCTA";
 import ProjectDetails from "../../components/projects/ProjectDetails";
@@ -32,54 +32,35 @@ function Projects({ initialProjectId }) {
   );
 
   return (
-    <React.Fragment>
-      <Head>
-        <title>Projects | Umesh Yadav</title>
-      </Head>
+    <PageShell title="Projects | Umesh Yadav">
+      <ProjectHero />
 
       <Box
         sx={{
-          bgcolor: "#FFFFFF",
-          color: projectTheme.ink,
-          minHeight: "100vh",
-          pb: { xs: 6, md: 10 },
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", lg: "292px 1fr" },
+          border: `1px solid ${projectTheme.border}`,
+          borderRadius: 2.5,
+          overflow: "hidden",
+          bgcolor: projectTheme.surface,
+          boxShadow: "0 22px 70px rgba(35, 24, 92, 0.08)",
         }}
       >
-        <Container
-          maxWidth="xl"
-          className="page-animate"
-          sx={{ pt: { xs: 5, md: 7 } }}
-        >
-          <ProjectHero />
-
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", lg: "292px 1fr" },
-              border: `1px solid ${projectTheme.border}`,
-              borderRadius: 2.5,
-              overflow: "hidden",
-              bgcolor: "#fff",
-              boxShadow: "0 22px 70px rgba(35, 24, 92, 0.08)",
-            }}
-          >
-            <ProjectSidebar
-              projects={projects}
-              selectedId={selectedProject.id}
-              onSelect={handleSelectProject}
-            />
-            <ProjectDetails project={selectedProject} />
-          </Box>
-
-          <ProjectTechStack project={selectedProject} />
-          <OtherProjects
-            projects={otherProjects}
-            onSelect={handleSelectProject}
-          />
-          <ProjectCTA />
-        </Container>
+        <ProjectSidebar
+          projects={projects}
+          selectedId={selectedProject.id}
+          onSelect={handleSelectProject}
+        />
+        <ProjectDetails project={selectedProject} />
       </Box>
-    </React.Fragment>
+
+      <ProjectTechStack project={selectedProject} />
+      <OtherProjects
+        projects={otherProjects}
+        onSelect={handleSelectProject}
+      />
+      <ProjectCTA />
+    </PageShell>
   );
 }
 

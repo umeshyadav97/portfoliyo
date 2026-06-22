@@ -9,16 +9,14 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import { Link } from "@mui/material";
-import { useNavbarController } from "./navbar.controller";
 import { useRouter } from "next/router";
+import { portfolioTheme } from "../common/portfolioTheme";
 
 const pages = [
   {
@@ -26,12 +24,12 @@ const pages = [
     link: "/home",
   },
   {
-    name: "About",
-    link: "/about",
-  },
-  {
     name: "Projects",
     link: "/projects",
+  },
+  {
+    name: "About",
+    link: "/about",
   },
 
   {
@@ -43,38 +41,57 @@ const pages = [
 const drawerWidth = 240;
 
 function NavBar() {
-  const { open, theme, classes, handleDrawerOpen, handleDrawerClose, navRef } =
-    useNavbarController();
+  const [open, setOpen] = React.useState(false);
   const router = useRouter();
-  const activeColor = "#5B2EFF";
-  const mutedColor = "#27324A";
+  const activeColor = portfolioTheme.purple;
+  const mutedColor = portfolioTheme.mutedInk;
+  const currentPath = router.asPath.split("?")[0] === "/" ? "/home" : router.asPath.split("?")[0];
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const navigateTo = (route, closeDrawer = false) => {
+    if (closeDrawer) {
+      handleDrawerClose();
+    }
+
+    if (route !== currentPath) {
+      router.push(route);
+    }
+  };
 
   return (
     <AppBar
-      sx={
-        (classes[navRef.current],
-        {
-          borderBottom: "1px solid #E7EAF2",
-          background: "rgba(255, 255, 255, 0.92)",
-          backdropFilter: "blur(18px)",
-          boxShadow: "none",
-          transition: "background 240ms ease, border-color 240ms ease",
-        })
-      }
+      sx={{
+        borderBottom: `1px solid ${portfolioTheme.border}`,
+        background: "rgba(255, 255, 255, 0.92)",
+        backdropFilter: "blur(18px)",
+        boxShadow: "none",
+        transition: "background 240ms ease, border-color 240ms ease",
+      }}
       position="fixed"
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ minHeight: { xs: 64, md: 72 } }}>
           <Box
-            component="a"
-            href="/"
+            component="button"
+            type="button"
+            onClick={() => navigateTo("/home")}
             sx={{
+              border: 0,
+              background: "transparent",
               mr: 2,
               display: { xs: "none", md: "inline-flex" },
               alignItems: "center",
               gap: 1.25,
-              color: "#080B16",
+              color: portfolioTheme.ink,
               textDecoration: "none",
+              cursor: "pointer",
             }}
           >
             <Box
@@ -84,7 +101,7 @@ function NavBar() {
                 borderRadius: "9px",
                 display: "grid",
                 placeItems: "center",
-                bgcolor: "#5B2EFF",
+                bgcolor: portfolioTheme.purple,
                 color: "#fff",
                 fontFamily: "poppins semibold",
                 fontWeight: 800,
@@ -93,8 +110,14 @@ function NavBar() {
             >
               U
             </Box>
-            <Typography sx={{ fontFamily: "poppins semibold", fontSize: 24, fontWeight: 800 }}>
-              umesh<span style={{ color: "#5B2EFF" }}>.dev</span>
+            <Typography
+              sx={{
+                fontFamily: "poppins semibold",
+                fontSize: 24,
+                fontWeight: 800,
+              }}
+            >
+              umesh<span style={{ color: portfolioTheme.purple }}>.dev</span>
             </Typography>
           </Box>
 
@@ -118,8 +141,8 @@ function NavBar() {
                   width: drawerWidth,
                   boxSizing: "border-box",
                   p: 1,
-                  background: "#FFFFFF",
-                  color: "#080B16",
+                  background: portfolioTheme.surface,
+                  color: portfolioTheme.ink,
                 },
               }}
               variant="persistent"
@@ -130,28 +153,23 @@ function NavBar() {
                 sx={{ display: "flex", justifyContent: "end" }}
                 onClick={handleDrawerClose}
               >
-                {theme.direction === "ltr" ? (
-                  <ChevronLeftIcon />
-                ) : (
-                  <ChevronRightIcon />
-                )}
+                <ChevronLeftIcon />
               </IconButton>
 
               <Divider />
               <List>
                 {pages.map((text, idx) => (
                   <ListItem key={idx} disablePadding>
-                    <ListItemButton>
-                      <Link
-                        href={text.link}
-                        sx={{
-                          color: activeColor,
-                          textDecoration: "none",
-                          fontWeight: text.link === router.pathname ? 700 : 500,
-                        }}
-                      >
-                        <ListItemText primary={text.name} />
-                      </Link>
+                    <ListItemButton
+                      onClick={() => navigateTo(text.link, true)}
+                      selected={text.link === currentPath}
+                      sx={{
+                        color: activeColor,
+                        textDecoration: "none",
+                        fontWeight: text.link === currentPath ? 700 : 500,
+                      }}
+                    >
+                      <ListItemText primary={text.name} />
                     </ListItemButton>
                   </ListItem>
                 ))}
@@ -162,26 +180,32 @@ function NavBar() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="/"
+            component="button"
+            type="button"
+            onClick={() => navigateTo("/home")}
             sx={{
+              border: 0,
+              background: "transparent",
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
               fontFamily: "poppins semibold",
               fontWeight: 700,
               letterSpacing: 0,
-              color: "#080B16",
+              color: portfolioTheme.ink,
               textDecoration: "none",
+              cursor: "pointer",
             }}
           >
-            umesh<span style={{ color: "#5B2EFF" }}>.dev</span>
+            umesh<span style={{ color: portfolioTheme.purple }}>.dev</span>
           </Typography>
           <Box
             sx={{
-              flexGrow: 1,
+              flexGrow: 0,
+              ml: "auto",
+              mr: 2,
               display: { xs: "none", md: "flex" },
-              justifyContent: "center",
+              justifyContent: "flex-end",
             }}
           >
             <List
@@ -194,11 +218,20 @@ function NavBar() {
             >
               {pages.map((page, idx) => (
                 <ListItem key={idx} sx={{ width: "auto" }}>
-                  <Link
+                  <Button
+                    type="button"
+                    onClick={() => navigateTo(page.link)}
+                    aria-current={page.link === currentPath ? "page" : undefined}
                     sx={{
-                      color: page.link === router.pathname ? activeColor : mutedColor,
+                      color:
+                        page.link === currentPath
+                          ? activeColor
+                          : mutedColor,
+                      minWidth: "auto",
+                      p: 0,
                       textDecoration: "none",
-                      fontWeight: page.link === router.pathname ? 700 : 500,
+                      textTransform: "none",
+                      fontWeight: page.link === currentPath ? 700 : 500,
                       position: "relative",
                       transition: "color 180ms ease",
                       "&:after": {
@@ -211,7 +244,9 @@ function NavBar() {
                         borderRadius: 2,
                         background: activeColor,
                         transform:
-                          page.link === router.pathname ? "scaleX(1)" : "scaleX(0)",
+                          page.link === currentPath
+                            ? "scaleX(1)"
+                            : "scaleX(0)",
                         transformOrigin: "left",
                         transition: "transform 180ms ease",
                       },
@@ -222,10 +257,9 @@ function NavBar() {
                         transform: "scaleX(1)",
                       },
                     }}
-                    href={page.link}
                   >
                     {page.name}
-                  </Link>
+                  </Button>
                 </ListItem>
               ))}
             </List>

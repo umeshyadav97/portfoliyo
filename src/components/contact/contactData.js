@@ -1,14 +1,14 @@
 export const contactItems = [
   {
     label: "Primary Email",
-    value: "umtp97@gmail.com",
-    href: "mailto:umtp97@gmail.com",
+    value: "dev.umeshyadav97@gmail.com",
+    href: "mailto:dev.umeshyadav97@gmail.com",
     icon: "mail",
   },
   {
     label: "Alternate Email",
-    value: "umeshyadava099@gmail.com",
-    href: "mailto:umeshyadava099@gmail.com",
+    value: "umtp97@gmail.com",
+    href: "mailto:umtp97@gmail.com",
     icon: "mail",
   },
   {

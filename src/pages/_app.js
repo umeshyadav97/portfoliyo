@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "../themes/fonts.scss";
 import "../styles/globals.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import { Provider as ReduxProvider } from "react-redux";
-import PublicLayout from "../components/layouts/publicLayout";
 import { defaultTheme } from "../themes/defaultTheme";
 import { store } from "../redux/store";
 import { CookiesProvider } from "react-cookie";
@@ -14,11 +13,10 @@ import { ToastContainer } from "react-toastify";
 import { ThemeContext } from "@/components/themeContext";
 
 function MyApp({ Component, pageProps }) {
-  const path = useRouter();
-  const isPublic = path.pathname.includes("/auth/");
-  const isPrivate = path.pathname.includes("/user/");
-  const Wrapper = isPublic ? PublicLayout : CommonLayout;
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isPageLoading, setIsPageLoading] = useState(true);
+  const loadingTimerRef = useRef(null);
+  const router = useRouter();
   const currentTheme = useMemo(
     () =>
       createTheme({
@@ -59,15 +57,46 @@ function MyApp({ Component, pageProps }) {
     document.body.dataset.theme = isDarkMode ? "dark" : "light";
   }, [isDarkMode]);
 
+  useEffect(() => {
+    loadingTimerRef.current = window.setTimeout(() => {
+      setIsPageLoading(false);
+    }, 650);
+
+    const handleRouteStart = (url) => {
+      if (url !== router.asPath) {
+        window.clearTimeout(loadingTimerRef.current);
+        setIsPageLoading(true);
+      }
+    };
+
+    const handleRouteDone = () => {
+      window.clearTimeout(loadingTimerRef.current);
+      loadingTimerRef.current = window.setTimeout(() => {
+        setIsPageLoading(false);
+      }, 450);
+    };
+
+    router.events.on("routeChangeStart", handleRouteStart);
+    router.events.on("routeChangeComplete", handleRouteDone);
+    router.events.on("routeChangeError", handleRouteDone);
+
+    return () => {
+      window.clearTimeout(loadingTimerRef.current);
+      router.events.off("routeChangeStart", handleRouteStart);
+      router.events.off("routeChangeComplete", handleRouteDone);
+      router.events.off("routeChangeError", handleRouteDone);
+    };
+  }, [router.asPath, router.events]);
+
   return (
     <CookiesProvider>
       <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
         <ReduxProvider store={store}>
           <ThemeProvider theme={currentTheme}>
-            <AppLoader />
-            <Wrapper>
+            <AppLoader visible={isPageLoading} />
+            <CommonLayout>
               <Component {...pageProps} />
-            </Wrapper>
+            </CommonLayout>
             <ToastContainer />
           </ThemeProvider>
         </ReduxProvider>

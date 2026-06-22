@@ -14,6 +14,7 @@ function ContactMethods() {
           key={item.label}
           component="a"
           href={item.href}
+          aria-label={`${item.label}: ${item.value}`}
           target={item.href.startsWith("http") ? "_blank" : undefined}
           rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
           sx={{
@@ -25,6 +26,7 @@ function ContactMethods() {
             minHeight: { xs: 104, sm: 136 },
             bgcolor: "#fff",
             color: ink,
+            cursor: "pointer",
             border: `1px solid ${border}`,
             borderBottomWidth: index === contactItems.length - 1 ? 1 : 0,
             borderRadius:
@@ -57,7 +59,7 @@ function ContactMethods() {
               {item.value}
             </Typography>
           </Box>
-          <ArrowForwardIcon sx={{ color: purple, fontSize: 34 }} />
+          <ArrowForwardIcon sx={{ color: purple, fontSize: 34, pointerEvents: "none" }} />
         </Box>
       ))}
     </Stack>

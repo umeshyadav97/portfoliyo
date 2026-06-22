@@ -1,13 +1,254 @@
 .loader {
-  position: absolute;
+  position: fixed;
   z-index: 99999;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(14px);
+}
+
+.loaderShell {
+  width: min(620px, 100%);
+  border: 1px solid var(--portfolio-soft-border);
+  border-radius: 8px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 24px 80px rgba(35, 24, 92, 0.12);
+}
+
+.brandRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.brandMark {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: var(--portfolio-purple);
+  color: var(--portfolio-surface);
+  font-family: poppins, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.brandText {
+  color: var(--portfolio-ink);
+  font-family: poppins, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.brandText span {
+  color: var(--portfolio-purple);
+}
+
+.preview {
+  overflow: hidden;
+  border: 1px solid #eceef6;
+  border-radius: 8px;
+  background: var(--portfolio-surface);
+}
+
+.previewHeader {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  border-bottom: 1px solid #eceef6;
+}
+
+.previewDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--portfolio-purple);
+  box-shadow: 18px 0 0 var(--portfolio-soft-border), 36px 0 0 var(--portfolio-soft-border);
+}
+
+.previewLineShort,
+.eyebrow,
+.titleLine,
+.titleLineSmall,
+.bodyLine,
+.bodyLineShort,
+.mediaCard {
+  position: relative;
+  overflow: hidden;
+  background: #eef1f7;
+}
+
+.previewLineShort::after,
+.eyebrow::after,
+.titleLine::after,
+.titleLineSmall::after,
+.bodyLine::after,
+.bodyLineShort::after,
+.mediaCard::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(91, 46, 255, 0.16), transparent);
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+.previewLineShort {
+  width: 96px;
+  height: 10px;
+  margin-left: 42px;
+  border-radius: 999px;
+}
+
+.previewGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(180px, 0.95fr);
+  gap: 22px;
+  padding: 22px;
+}
+
+.copyBlock {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.eyebrow {
+  width: 104px;
+  height: 12px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: rgba(91, 46, 255, 0.14);
+}
+
+.titleLine {
+  width: 100%;
+  height: 28px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  background: #dfe3ee;
+}
+
+.titleLineSmall {
+  width: 72%;
+  height: 28px;
+  margin-bottom: 18px;
+  border-radius: 6px;
+  background: #dfe3ee;
+}
+
+.bodyLine {
+  width: 92%;
+  height: 12px;
+  margin-bottom: 10px;
+  border-radius: 999px;
+}
+
+.bodyLineShort {
+  width: 64%;
+  height: 12px;
+  border-radius: 999px;
+}
+
+.mediaBlock {
+  position: relative;
+  min-height: 170px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(91, 46, 255, 0.08), var(--portfolio-surface));
+  border: 1px solid #eceef6;
+}
+
+.mediaOrb {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  top: 26px;
+  right: 28px;
+  border-radius: 50%;
+  background: var(--portfolio-purple);
+  opacity: 0.12;
+}
+
+.mediaCard {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 22px;
+  height: 76px;
+  border-radius: 8px;
+  background: var(--portfolio-surface);
+  border: 1px solid var(--portfolio-soft-border);
+}
+
+.progressTrack {
+  height: 3px;
+  overflow: hidden;
+  background: #edf0f7;
+}
+
+.progressBar {
+  width: 42%;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--portfolio-purple);
+  animation: progress 1.1s ease-in-out infinite;
+}
+
+.message {
+  color: var(--portfolio-body);
+  font-family: poppins, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 14px;
+  text-align: center;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes progress {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  100% {
+    transform: translateX(260%);
+  }
+}
+
+@media (max-width: 640px) {
+  .loader {
+    padding: 16px;
+  }
+
+  .loaderShell {
+    padding: 18px;
+  }
+
+  .previewGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 18px;
+  }
+
+  .mediaBlock {
+    min-height: 130px;
+  }
+
+  .brandText {
+    font-size: 18px;
+  }
 }

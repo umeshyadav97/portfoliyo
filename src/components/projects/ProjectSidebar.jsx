@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ContactPromptCard from "../common/ContactPromptCard";
 import ProjectIconBadge from "./ProjectIconBadge";
 import { projectTheme } from "./projectTheme";
 
@@ -61,52 +61,12 @@ function ProjectSidebar({ projects, selectedId, onSelect }) {
         })}
       </Stack>
 
-      <Box
-        sx={{
-          m: 2,
-          mt: 5,
-          p: 3,
-          borderRadius: 2,
-          background: "linear-gradient(135deg, #F8F4FF 0%, #FFFFFF 100%)",
-          border: `1px solid ${border}`,
-        }}
-      >
-        <Typography sx={{ fontSize: 18, fontWeight: 900, mb: 1 }}>
-          Interested in working together?
-        </Typography>
-        <Typography sx={{ color: body, fontSize: 13.5, lineHeight: 1.7, mb: 3 }}>
-          I&apos;m always open to discussing new opportunities and interesting projects.
-        </Typography>
-        <Box
-          component="a"
-          href="/contact"
-          sx={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 0.8,
-            bgcolor: purple,
-            color: "#fff",
-            borderRadius: 1.6,
-            fontWeight: 800,
-            px: 2.2,
-            py: 1,
-            "&:hover": { bgcolor: "#4A20E8" },
-          }}
-        >
-          Let&apos;s Connect
-          <ArrowForwardIcon fontSize="small" />
-        </Box>
-        <Box
-          sx={{
-            mt: 3,
-            ml: "auto",
-            width: 92,
-            height: 54,
-            clipPath: "polygon(0 45%, 100% 0, 60% 100%, 46% 62%)",
-            bgcolor: "rgba(91, 46, 255, 0.18)",
-          }}
-        />
-      </Box>
+      <ContactPromptCard
+        sx={{ m: 2, mt: 5, minHeight: "auto" }}
+        contentSx={{ fontSize: 18 }}
+        buttonSx={{ gap: 0.8, borderRadius: 1.6, py: 1 }}
+        arrowSx={{ mt: 3, width: 92, height: 54 }}
+      />
     </Box>
   );
 }

@@ -1,0 +1,15 @@
+export const portfolioTheme = {
+  purple: "#5B2EFF",
+  purpleDark: "#4D21D9",
+  purpleLight: "#6A37FF",
+  ink: "#080B16",
+  mutedInk: "#27324A",
+  body: "#42506B",
+  border: "#E7EAF2",
+  softBorder: "#E8EAF3",
+  surface: "#FFFFFF",
+  softPurple: "#F4F0FF",
+  softPanelGradient: "linear-gradient(135deg, #F8F4FF 0%, #FFFFFF 100%)",
+  ctaGradient: "linear-gradient(135deg, #4D21D9 0%, #6A37FF 100%)",
+  ctaShadow: "0 20px 50px rgba(91, 46, 255, 0.2)",
+};
