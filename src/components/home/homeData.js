@@ -14,7 +14,7 @@ import Tailwind from "../../assets/images/icons/tailwind.svg";
 import Github from "../../assets/images/icons/github.svg";
 
 export const heroStats = [
-  { icon: CalendarMonthOutlinedIcon, value: "4.5+", label: "Years Experience" },
+  { icon: CalendarMonthOutlinedIcon, value: "5+", label: "Years Experience" },
   { icon: BusinessCenterOutlinedIcon, value: "15+", label: "Projects Delivered" },
   { icon: GroupsOutlinedIcon, value: "1000+", label: "Customers Served" },
   { icon: PublicOutlinedIcon, value: "3", label: "Countries Worked" },
@@ -22,6 +22,16 @@ export const heroStats = [
 
 export const featuredProjects = [
   {
+    id: "sarkarimate",
+    title: "SarkariMate",
+    preview: "sarkarimate",
+    desc: "Owned product for government job aspirants with jobs, admit cards, results, syllabus, schemes, and alerts.",
+    tags: ["Project Owner", "Govt Jobs", "SEO"],
+    result: "1000+ Students",
+    highlight: true,
+  },
+  {
+    id: "ragazza-fashion",
     title: "Ragazza Fashion",
     preview: "ragazza",
     desc: "Multi-brand e-commerce platform with modern UI and seamless shopping experience.",
@@ -29,13 +39,15 @@ export const featuredProjects = [
     result: "1000+ Customers",
   },
   {
+    id: "strope-ai",
     title: "Strope AI",
     preview: "strope",
-    desc: "AI-powered project estimation platform for accurate cost and timeline predictions.",
+    desc: "Nickelfox project for AI-powered cost estimation and timeline prediction workflows.",
     tags: ["Next.js", "OpenAI", "TailwindCSS"],
     result: "AI Automation",
   },
   {
+    id: "sharkdom",
     title: "Sharkdom",
     preview: "sharkdom",
     desc: "Partner ecosystem and business management SaaS platform with performance optimizations.",
@@ -43,6 +55,7 @@ export const featuredProjects = [
     result: "Improved Performance",
   },
   {
+    id: "gomble",
     title: "Gomble",
     preview: "gomble",
     desc: "Food delivery mobile app built with React Native for iOS and Android platforms.",

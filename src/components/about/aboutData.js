@@ -10,7 +10,7 @@ export const strengths = [
 ];
 
 export const heroStats = [
-  { value: "4.5+", label: "Years of Experience", icon: "globe" },
+  { value: "5+", label: "Years of Experience", icon: "globe" },
   { value: "15+", label: "Projects Delivered", icon: "briefcase" },
   { value: "1000+", label: "Happy Customers", icon: "target" },
 ];

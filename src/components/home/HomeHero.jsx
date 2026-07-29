@@ -50,7 +50,7 @@ function HomeHero() {
         </Typography>
 
         <Typography sx={{ maxWidth: 620, color: body, fontSize: { xs: 16, sm: 18 }, lineHeight: 1.75 }}>
-          4.5+ years of experience building high-performance web and mobile applications
+          5+ years of experience building high-performance web and mobile applications
           with React, Next.js and modern technologies. I help businesses build products
           that scale and create impact.
         </Typography>

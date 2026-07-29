@@ -12,7 +12,7 @@ const metrics = [
   { icon: CodeOutlinedIcon, value: "15+", label: "Projects Delivered", color: purple },
   { icon: GroupsOutlinedIcon, value: "1000+", label: "Customers Served", color: "#34B65B" },
   { icon: PublicOutlinedIcon, value: "3", label: "Countries Served", color: "#FF6A3D" },
-  { icon: StarBorderOutlinedIcon, value: "4.5+", label: "Years of Experience", color: "#2F80ED" },
+  { icon: StarBorderOutlinedIcon, value: "5+", label: "Years of Experience", color: "#2F80ED" },
 ];
 
 function ProjectHero() {

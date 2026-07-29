@@ -1,5 +1,6 @@
 import StropeAI from "../../assets/images/backgrounds/strope.jpg";
 import Customer from "../../assets/images/backgrounds/customer.jpg";
+import SarkariMateHome from "../../assets/images/backgrounds/sarkarimate-home.png";
 import Simplee from "../../assets/images/backgrounds/simplee.jpg";
 import Seller from "../../assets/images/backgrounds/seller.jpg";
 
@@ -8,7 +9,7 @@ export const projectDeatils = [
     id: 0,
     img: StropeAI,
     title: "Strope.AI",
-    para: "An AI-assisted estimation flow where users choose an app category, select templates, customize features, and receive development cost and timeline estimates.",
+    para: "A Nickelfox AI-assisted estimation flow where users choose an app category, select templates, customize features, and receive development cost and timeline estimates.",
     tags: ["Next.js", "React", "Estimation Flow", "Responsive UI"],
     link: "https://strope.ai",
   },
@@ -35,5 +36,13 @@ export const projectDeatils = [
     para: "A seller dashboard for product management, inventory, analytics, order operations, fulfillment workflows, communication tools, and payment handling.",
     tags: ["Seller Panel", "Analytics", "Inventory", "Orders"],
     link: "https://dev.nfx-seller.foxlabs.in",
+  },
+  {
+    id: 4,
+    img: SarkariMateHome,
+    title: "SarkariMate",
+    para: "My owned product for government job aspirants, bringing latest jobs, admit cards, results, answer keys, syllabus, schemes, and exam resources into one trusted platform used by 1000+ students.",
+    tags: ["Project Owner", "Govt Jobs", "Exam Updates", "1000+ Students"],
+    link: "https://sarkarimate.com/",
   },
 ];

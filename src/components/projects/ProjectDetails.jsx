@@ -38,7 +38,7 @@ function ProjectDetails({ project }) {
   const selectedScreens = project.screens.length
     ? project.screens.slice(0, 3)
     : ["Main Screen", "Dashboard", "Details"];
-  const galleryImages = [project.image, ...fallbackImages].filter(Boolean);
+  const galleryImages = [project.image, ...(project.screenImages || []), ...fallbackImages].filter(Boolean);
   const screenGallery = selectedScreens.map((screen, index) => ({
     name: screen,
     image: galleryImages[index % galleryImages.length],

@@ -1,4 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
+import Image from "next/image";
+import SarkariMateHome from "../../assets/images/backgrounds/sarkarimate-home.png";
 import { homeTheme } from "./homeTheme";
 
 const previews = {
@@ -22,6 +24,14 @@ const previews = {
     bg: "linear-gradient(135deg, #ECF6FF 0%, #FFFFFF 100%)",
     headline: ["Partner ecosystem", "business", "management"],
     mode: "analytics",
+  },
+  sarkarimate: {
+    logo: "SarkariMate",
+    accent: "#34B65B",
+    bg: "linear-gradient(135deg, #F0FFF6 0%, #FFFFFF 100%)",
+    headline: ["Exam updates", "for 1000+", "students"],
+    mode: "image",
+    image: SarkariMateHome,
   },
   gomble: {
     logo: "Gomble",
@@ -146,6 +156,21 @@ function ProjectPreviewMockup({ type }) {
           <Box sx={{ mt: 0.8, width: 82, height: 4, borderRadius: 10, bgcolor: "rgba(66,80,107,.18)" }} />
         </Box>
         <Box sx={{ minWidth: 0 }}>
+          {config.mode === "image" && (
+            <Box
+              sx={{
+                position: "relative",
+                width: "100%",
+                aspectRatio: "16 / 11",
+                borderRadius: 1,
+                overflow: "hidden",
+                border: "1px solid #D8E9FF",
+                boxShadow: "0 8px 20px rgba(0, 87, 255, 0.12)",
+              }}
+            >
+              <Image src={config.image} alt={`${config.logo} homepage preview`} fill style={{ objectFit: "cover" }} />
+            </Box>
+          )}
           {config.mode === "fashion" && <FashionVisual accent={config.accent} />}
           {config.mode === "dashboard" && <DashboardVisual accent={config.accent} />}
           {config.mode === "analytics" && <AnalyticsVisual accent={config.accent} />}

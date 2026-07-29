@@ -3,6 +3,8 @@ import NextImage from "../../assets/images/icons/next.svg";
 import TailwindImage from "../../assets/images/icons/tailwind.svg";
 import StropeAI from "../../assets/images/backgrounds/strope.jpg";
 import Customer from "../../assets/images/backgrounds/customer.jpg";
+import SarkariMateHome from "../../assets/images/backgrounds/sarkarimate-home.png";
+import SarkariMateResults from "../../assets/images/backgrounds/sarkarimate-results.png";
 import Simplee from "../../assets/images/backgrounds/simplee.jpg";
 import Seller from "../../assets/images/backgrounds/seller.jpg";
 import { projectTheme } from "./projectTheme";
@@ -129,7 +131,7 @@ const rawProjects = [
     id: "strope-ai",
     order: 6,
     name: "Strope AI",
-    company: "Strope AI",
+    company: "Nickelfox Technologies",
     tagline: "AI-powered project estimation platform",
     featured: true,
     year: "2023 - Present",
@@ -146,6 +148,31 @@ const rawProjects = [
     ],
     impact: ["Faster project planning", "Automated estimation process", "Improved decision making"],
     screens: ["Project Wizard", "AI Estimation", "Cost Calculator", "Dashboard"],
+  },
+  {
+    id: "sarkarimate",
+    order: 7,
+    name: "SarkariMate",
+    company: "SarkariMate",
+    tagline: "Government jobs and exam information platform",
+    featured: true,
+    year: "2026 - Present",
+    role: "Project Owner",
+    industry: "GovTech & Education",
+    description:
+      "Founded and built SarkariMate, a student-first platform that brings government job notifications, admit cards, results, answer keys, syllabus updates, schemes, and exam resources into one clean experience. The product is designed for fast discovery, mobile-friendly access, and trustworthy updates for exam aspirants.",
+    techStack: ["Next.js", "React", "Tailwind CSS", "SEO", "Responsive UI"],
+    highlights: [
+      "Latest job notification hub",
+      "Admit card, result, answer key, and syllabus sections",
+      "Exam categories and popular search flows",
+      "Hindi and accessibility-friendly controls",
+      "Email alerts and app download journeys",
+      "Mobile-first responsive experience",
+    ],
+    impact: ["Used by 1000+ students", "Centralized government exam information", "Improved access to time-sensitive updates"],
+    screens: ["Home Dashboard", "Results", "Latest Jobs", "Admit Cards", "Exam Categories"],
+    screenImages: [SarkariMateHome, SarkariMateResults, SarkariMateHome],
   },
 ];
 
@@ -186,9 +213,15 @@ const visualMap = {
     image: StropeAI,
     link: "https://strope.ai",
   },
+  sarkarimate: {
+    icon: "SM",
+    color: "#0057FF",
+    image: SarkariMateHome,
+    link: "https://sarkarimate.com/",
+  },
 };
 
-export const fallbackImages = [Customer, Simplee, Seller, StropeAI];
+export const fallbackImages = [Customer, Simplee, Seller, StropeAI, SarkariMateHome, SarkariMateResults];
 
 export const projects = rawProjects
   .map((project) => {
@@ -201,6 +234,7 @@ export const projects = rawProjects
       integrations: project.integrations || [],
       impact: project.impact || [],
       screens: project.screens || [],
+      screenImages: project.screenImages || [],
       icon: visual.icon || project.name.slice(0, 2).toUpperCase(),
       color: visual.color || purple,
       image: visual.image || Customer,

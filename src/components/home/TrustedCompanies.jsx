@@ -13,9 +13,17 @@ function TrustedCompanies() {
           NICKELFOX
         </Typography>
         <Typography component="div" sx={{ fontSize: 20, fontWeight: 900, letterSpacing: 3 }}>
-          <Box component="span" sx={{ color: "#38CBD0", mr: 1 }}>
-            ◇
-          </Box>
+          <Box
+            component="span"
+            sx={{
+              display: "inline-block",
+              width: 12,
+              height: 12,
+              border: "2px solid #38CBD0",
+              transform: "rotate(45deg)",
+              mr: 1.5,
+            }}
+          />
           MARTISAN
         </Typography>
         <Typography
@@ -37,7 +45,7 @@ function TrustedCompanies() {
           >
             S
           </Box>
-          Strope AI
+          Sharkdom
         </Typography>
       </Stack>
     </Stack>

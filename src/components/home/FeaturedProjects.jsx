@@ -1,5 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import WorkspacesOutlinedIcon from "@mui/icons-material/WorkspacesOutlined";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Link from "next/link";
 import { featuredProjects } from "./homeData";
 import HomeSectionHeader from "./HomeSectionHeader";
 import ProjectPreviewMockup from "./ProjectPreviewMockup";
@@ -12,23 +14,33 @@ function FeaturedProjects() {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" },
+          gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" },
           gap: 3,
         }}
       >
         {featuredProjects.map((project) => (
           <Box
+            component={Link}
+            href={`/projects?project=${encodeURIComponent(project.id)}`}
             key={project.title}
             sx={{
               border: `1px solid ${homeTheme.border}`,
               borderRadius: 2,
               overflow: "hidden",
               bgcolor: "#fff",
+              color: "inherit",
+              textDecoration: "none",
               boxShadow: "0 18px 45px rgba(35, 24, 92, 0.08)",
               transition: "transform 220ms ease, box-shadow 220ms ease",
+              ...(project.highlight && {
+                borderColor: "rgba(0, 87, 255, 0.28)",
+                boxShadow: "0 24px 70px rgba(0, 87, 255, 0.14)",
+              }),
               "&:hover": {
                 transform: "translateY(-8px)",
-                boxShadow: "0 28px 65px rgba(35, 24, 92, 0.14)",
+                boxShadow: project.highlight
+                  ? "0 34px 80px rgba(0, 87, 255, 0.18)"
+                  : "0 28px 65px rgba(35, 24, 92, 0.14)",
               },
             }}
           >
@@ -46,6 +58,11 @@ function FeaturedProjects() {
               <ProjectPreviewMockup type={project.preview} />
             </Box>
             <Stack spacing={1.5} sx={{ p: 2 }}>
+              {project.highlight && (
+                <Typography sx={{ color: "#0057FF", fontSize: 12, fontWeight: 900, textTransform: "uppercase" }}>
+                  Highlighted owned product
+                </Typography>
+              )}
               <Typography sx={{ color: homeTheme.body, fontSize: 14, lineHeight: 1.65 }}>{project.desc}</Typography>
               <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
                 {project.tags.map((tag) => (
@@ -57,6 +74,7 @@ function FeaturedProjects() {
               <Typography sx={{ color: homeTheme.purple, fontWeight: 800, display: "flex", alignItems: "center", gap: 0.8 }}>
                 <WorkspacesOutlinedIcon fontSize="small" />
                 {project.result}
+                <ArrowForwardIcon fontSize="small" />
               </Typography>
             </Stack>
           </Box>
